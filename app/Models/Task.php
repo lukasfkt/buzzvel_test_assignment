@@ -3,17 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     # Attributes to be filled
     protected $fillable = [
         'title',
         'description',
-        'file_location',
+        'file_name',
         'completed',
         'user_id'
     ];

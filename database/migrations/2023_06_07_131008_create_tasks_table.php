@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tasks', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();;
             $table->string('title');
             $table->string('description');
-            $table->string('file_location');
-            $table->boolean('completed');
-            $table->foreignId('user_id')->constrained();
+            $table->string('file_name')->nullable();
+            $table->boolean('completed')->default(false);
+            $table->foreignUuid('user_id')->constrained();
             $table->timestamps();
         });
     }
