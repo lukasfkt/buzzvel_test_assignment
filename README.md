@@ -63,7 +63,7 @@ After registering the user, you will need to login to authenticate.
 `email(string)` and  `password(string)`
 Return Value: `Object with token or Reponse Status 401`
 
-The only public routes are registration and login. For the others, it will be necessary to use the Authorization header with the token returned by the login route.
+The only public routes are registration and login. For the others, it will be necessary to use the <b>Authorization header </b> with the <b>token</b> returned by the login route.
 
 ## Available Endpoints
 
