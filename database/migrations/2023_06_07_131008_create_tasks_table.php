@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('description');
             $table->string('file_location');
             $table->boolean('completed');
-            $table->date('change_date');
+            $table->foreignId('user_id')->constrained();
+            $table->timestamps();
         });
     }
 
