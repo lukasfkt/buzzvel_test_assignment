@@ -116,7 +116,7 @@ class TasksController extends Controller
         }
 
         # Clear redis key taskList
-        Redis::set('taskList-' . request('user_id'), null);
+        Redis::set('taskList-' .  $user->id, null);
 
         return $task;
     }
@@ -146,11 +146,16 @@ class TasksController extends Controller
             # Abort with status code 400 with error message missing some information
             abort(400, $e->getMessage());
         }
+        # Get user from jwt token
+        $user = JWTAuth::user();
 
         $taskInformation = request()->only(['title', 'description', 'completed']);
 
         # Update Task
-        !Task::where('id', $id)->update($taskInformation);
+        Task::where('id', $id)->update($taskInformation);
+
+        # Clear redis key taskList
+        Redis::set('taskList-' . $user->id, null);
 
         return response("Task updated", 200);
     }
@@ -177,7 +182,13 @@ class TasksController extends Controller
             abort(400, 'Invalid uuid or task does not exist');
         }
 
+        # Get user from jwt token
+        $user = JWTAuth::user();
+
         Task::where('id', $id)->delete();
+
+        # Clear redis key taskList
+        Redis::set('taskList-' . $user->id, null);
 
         return response("Task deleted", 200);
     }
